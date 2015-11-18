@@ -110,6 +110,10 @@ namespace TSF.UmlToolingFramework.Wrappers.EA {
     	}
     	return arrayList;
     }
+    public Object toObject(object someObject)
+    {
+    	return someObject as Object;
+    }
     /// the Element currently selected in EA
     public UML.Classes.Kernel.Element selectedElement {
       get {
@@ -472,7 +476,8 @@ namespace TSF.UmlToolingFramework.Wrappers.EA {
     		case RepositoryType.ORACLE:
     		case RepositoryType.FIREBIRD:
     			return xpath.ToUpper();
-    		
+    		case RepositoryType.POSTGRES:
+    			return xpath.ToLower();
     		default:
     			return xpath;
     	}
@@ -537,7 +542,8 @@ namespace TSF.UmlToolingFramework.Wrappers.EA {
     	if (this.repositoryType == RepositoryType.SQLSVR || 
     	    this.repositoryType == RepositoryType.ASA ||
     	   	this.repositoryType == RepositoryType.ORACLE ||
-    	   	this.repositoryType == RepositoryType.FIREBIRD)
+    	   	this.repositoryType == RepositoryType.FIREBIRD ||
+    	   	this.repositoryType == RepositoryType.POSTGRES)
     	{
     		formattedSQL = formattedSQL.Replace("lcase(","lower(");
     	}
@@ -733,7 +739,21 @@ namespace TSF.UmlToolingFramework.Wrappers.EA {
 
     public ElementWrapper getElementWrapperByPackageID(int packageID)
     {
-      return this.factory.createElement(this.wrappedModel.GetPackageByID(packageID)) as ElementWrapper;
+    	try
+    	{
+      		return this.factory.createElement(this.wrappedModel.GetPackageByID(packageID)) as ElementWrapper;
+    	}
+    	catch (System.Runtime.InteropServices.COMException e)
+  		{
+  			if (e.Message.Contains("Can't find matching ID"))
+  			{
+  				return null;
+  			}
+  			else
+  			{
+  				throw e;
+  			}
+  		}
     }
 
     //returns a list of diagrams according to the given query.
@@ -757,7 +777,7 @@ namespace TSF.UmlToolingFramework.Wrappers.EA {
         return diagrams;
     }
 
-    public UML.Classes.Kernel.Operation getOperationByGUID(string guid)
+    public Operation getOperationByGUID(string guid)
     {
     	Operation operation = this.factory.createElement(this.wrappedModel.GetMethodByGuid(guid)) as Operation;
     	if (operation == null)
@@ -775,9 +795,9 @@ namespace TSF.UmlToolingFramework.Wrappers.EA {
     	return operation;
         
     }
-    public UML.Classes.Kernel.Operation getOperationByID(int operationID)
+    public Operation getOperationByID(int operationID)
     {
-        return this.factory.createElement(this.wrappedModel.GetMethodByID(operationID)) as UML.Classes.Kernel.Operation;
+        return this.factory.createElement(this.wrappedModel.GetMethodByID(operationID)) as Operation;
     }
 	
     

@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace MyAddin
 {
@@ -142,7 +143,7 @@ namespace MyAddin
 		}
 		public override void EA_OnNotifyContextItemModified(EA.Repository Repository, string GUID, EA.ObjectType ot)
 		{
-			MessageBox.Show("OnNotifyContextItemModified works!");
+			//MessageBox.Show("OnNotifyContextItemModified works!");
 		}
         /// <summary>
         /// Say Hello to the world
@@ -171,7 +172,6 @@ namespace MyAddin
 
         
 	}
-	
     public class InternalHelpers
 	{
 	   static public IWin32Window GetMainWindow()

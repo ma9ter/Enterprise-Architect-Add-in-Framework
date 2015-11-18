@@ -1045,6 +1045,18 @@
             Set these options in the constructor of the derived add-in class
             </summary>
         </member>
+        <member name="T:EAAddinFramework.EASpecific.EAAddin">
+            <summary>
+            Description of EAAddin.
+            </summary>
+        </member>
+        <member name="M:EAAddinFramework.EASpecific.EAAddin.isComVisible(System.Type)">
+            <summary>
+            Check if the given type is ComVisible
+            </summary>
+            <param name="type">the type to check</param>
+            <returns>whether or not the given type is ComVisible</returns>
+        </member>
         <member name="T:EAAddinFramework.EASpecific.ScriptType">
             <summary>
             The different types of scripts you can make in EA.
@@ -1076,6 +1088,17 @@
             </summary>
         </member>
         <member name="M:EAAddinFramework.EASpecific.Script.#ctor(System.String,System.String,System.String,System.String,System.String,TSF.UmlToolingFramework.Wrappers.EA.Model)">
+            <summary>
+            creaates a new script
+            </summary>
+            <param name="scriptID">the id of the script</param>
+            <param name="scriptName">the name of the script</param>
+            <param name="groupName">the name of the scriptgroup</param>
+            <param name="code">the code</param>
+            <param name="language">the language the code is written in</param>
+            <param name="model">the model this script resides in</param>
+        </member>
+        <member name="M:EAAddinFramework.EASpecific.Script.#ctor(System.String,System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>
             creaates a new script
             </summary>
@@ -1502,6 +1525,11 @@
         <member name="P:TSF.UmlToolingFramework.Wrappers.EA.Diagram.diagramElements">
             all elements shown on this diagram.
             Currently only diagramObjectWrappers and relations
+        </member>
+        <member name="P:TSF.UmlToolingFramework.Wrappers.EA.Diagram.compositeElements">
+            <summary>
+            The elements that have this diagram as composite diagram
+            </summary>
         </member>
         <member name="M:TSF.UmlToolingFramework.Wrappers.EA.ConnectorWrapper.addToCurrentDiagram">
             <summary>
